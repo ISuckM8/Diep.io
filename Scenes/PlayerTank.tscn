@@ -1,0 +1,25 @@
+[gd_scene load_steps=6 format=3 uid="uid://dvkrojbdd8ee8"]
+
+[ext_resource type="Script" path="res://Scenes/PlayerTank.cs" id="1_rl5fg"]
+[ext_resource type="Script" path="res://Scenes/TankMovement.cs" id="2_7m4md"]
+[ext_resource type="Texture2D" uid="uid://bns6hqb2bk3hx" path="res://icon.svg" id="2_p0yd2"]
+[ext_resource type="Script" path="res://Scenes/Health.cs" id="3_mi5ik"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_s6ye7"]
+
+[node name="PlayerTank" type="Node2D"]
+script = ExtResource("1_rl5fg")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_p0yd2")
+
+[node name="TankBase" type="Node" parent="."]
+
+[node name="TankMovement" type="Node2D" parent="TankBase"]
+script = ExtResource("2_7m4md")
+
+[node name="Health" type="Node2D" parent="TankBase"]
+script = ExtResource("3_mi5ik")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TankBase"]
+shape = SubResource("CircleShape2D_s6ye7")
