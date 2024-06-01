@@ -9,26 +9,36 @@ public partial class Health : Node2D
 	[Signal]
 	public delegate void DeathEventHandler();
 
-	public Stat HealthCurrent;
-	public Stat HealthMax;
+	[Export]
+	public float healthCurrent;	// Health is never going to be affected by a stat, so it'll remain as a variable.
+
+	public Stat HealthMax;	// Mostly for tanks and projectiles, won't affect XP givers.
 
 
 
     public void TakeDamge(int damageTaken)
 	{
-		HealthCurrent.StatCurrentValue -= damageTaken;
-		if (HealthCurrent.StatCurrentValue <= 0)
+		healthCurrent -= damageTaken;
+
+		if (healthCurrent < 0)
 		{
-			HealthCurrent.StatCurrentValue = 0;
+			healthCurrent = 0;
 			
-			Death();
+			EmitSignal(SignalName.Death);
 		}
 
 		EmitSignal(SignalName.HealthChanged);
 	}
 
-	public void Death()
+	public void Heal(int healthHealed)
 	{
-		EmitSignal(SignalName.Death);
+		healthCurrent += healthHealed;
+
+		if (healthCurrent > HealthMax.StatCurrentValue)
+		{
+			healthCurrent = HealthMax.StatCurrentValue;
+		}
+
+		EmitSignal(SignalName.HealthChanged);
 	}
 }
