@@ -1,0 +1,1 @@
+A project to make a fully-functional, offline version of Diep.io in Godot.
